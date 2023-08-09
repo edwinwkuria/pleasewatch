@@ -1,5 +1,12 @@
 package main
 
-func main() {
+import (
+	"pleasewatch/routes"
+)
 
+func main() {
+	r := routes.SetupRouter()
+
+	// Run the server
+	r.Run(":8080")
 }
