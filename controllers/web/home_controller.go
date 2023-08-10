@@ -2,22 +2,30 @@ package webcontrollers
 
 import (
 	"net/http"
+	moviemanager "pleasewatch/interfaces/model"
 	"pleasewatch/models"
 
 	"github.com/gin-gonic/gin"
 )
 
-var movies []models.Movie
+type HomeController struct {
+	moviemanager moviemanager.MovieManager
+}
+
+func NewHomeController(mm moviemanager.MovieManager) *HomeController {
+	return &HomeController{moviemanager: mm}
+}
 
 // Add Movie
 // Get Movie
 // Get Movies
-func GetMovies(c *gin.Context) {
+func (hc HomeController) GetMovies(c *gin.Context) {
 	mov := models.Movie{
 		ID:   1,
 		Name: "Hello World",
 	}
-	movies = append(movies, mov)
+	hc.moviemanager.Add(mov)
+	movies := hc.moviemanager.Get()
 	c.HTML(http.StatusOK, "index.tmpl", movies)
 }
 
