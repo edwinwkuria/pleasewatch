@@ -2,6 +2,7 @@ package webcontrollers
 
 import (
 	"net/http"
+	"pleasewatch/database"
 	moviemanager "pleasewatch/interfaces/model"
 	"pleasewatch/models"
 
@@ -25,8 +26,9 @@ func (hc HomeController) GetMovies(c *gin.Context) {
 		Name: "Hello World",
 	}
 	hc.moviemanager.Add(mov)
-	movies := hc.moviemanager.Get()
-	c.HTML(http.StatusOK, "index.tmpl", movies)
+	movies := database.ReadMovies(c)
+	c.JSON(http.StatusOK, movies)
+	//c.HTML(http.StatusOK, "index.tmpl", movies)
 }
 
 //Edit Movie

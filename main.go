@@ -1,6 +1,7 @@
 package main
 
 import (
+	"pleasewatch/database"
 	"pleasewatch/routes"
 
 	"github.com/gin-gonic/gin"
@@ -8,6 +9,8 @@ import (
 
 func main() {
 	r := gin.Default()
+	//Try connect to database
+	database.TryConnect()
 	//configure API routes
 	routes.SetupAPIRouter(r)
 	//configure API routes
